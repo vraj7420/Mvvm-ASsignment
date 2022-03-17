@@ -1,4 +1,4 @@
-package com.example.mvvmassignment
+package com.example.mvvmassignment.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mvvmassignment.R
 import com.example.mvvmassignment.model.PageModel
 import com.google.android.material.switchmaterial.SwitchMaterial
 import com.google.android.material.textview.MaterialTextView
@@ -17,7 +18,9 @@ import java.text.SimpleDateFormat
 
 
 class PageInfoWithPaginationAdapter(private val switchChangeListener: (itemPosition: Int, item: PageModel,switch:SwitchMaterial) -> Unit
-): PagingDataAdapter<PageModel,PageInfoWithPaginationAdapter.PageInfoWithPaginationHolder>(DiffUtilCallBack()) {
+): PagingDataAdapter<PageModel, PageInfoWithPaginationAdapter.PageInfoWithPaginationHolder>(
+    DiffUtilCallBack()
+) {
 private lateinit var ctx:Context
 
 override fun onCreateViewHolder(

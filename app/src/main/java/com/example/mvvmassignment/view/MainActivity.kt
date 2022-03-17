@@ -1,4 +1,4 @@
-package com.example.mvvmassignment
+package com.example.mvvmassignment.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -7,7 +7,12 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.mvvmassignment.*
+import com.example.mvvmassignment.adapter.PageInfoWithPaginationAdapter
 import com.example.mvvmassignment.databinding.ActivityMainBinding
+import com.example.mvvmassignment.repository.PageDataRepository
+import com.example.mvvmassignment.viewmioel.MainViewModel
+import com.example.mvvmassignment.viewmioel.MainViewModelFactory
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {

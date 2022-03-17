@@ -1,4 +1,4 @@
-package com.example.mvvmassignment
+package com.example.mvvmassignment.repository
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState

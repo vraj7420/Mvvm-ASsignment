@@ -1,7 +1,8 @@
-package com.example.mvvmassignment
+package com.example.mvvmassignment.viewmioel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.mvvmassignment.repository.PageDataRepository
 
 class MainViewModelFactory(private val pageDataRepository: PageDataRepository):ViewModelProvider.Factory {
 
