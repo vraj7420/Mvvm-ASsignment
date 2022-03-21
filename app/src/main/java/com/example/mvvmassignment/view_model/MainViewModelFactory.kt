@@ -1,4 +1,4 @@
-package com.example.mvvmassignment.viewmioel
+package com.example.mvvmassignment.view_model
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

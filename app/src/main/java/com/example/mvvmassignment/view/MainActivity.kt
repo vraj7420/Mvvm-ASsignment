@@ -11,8 +11,8 @@ import com.example.mvvmassignment.*
 import com.example.mvvmassignment.adapter.PageInfoWithPaginationAdapter
 import com.example.mvvmassignment.databinding.ActivityMainBinding
 import com.example.mvvmassignment.repository.PageDataRepository
-import com.example.mvvmassignment.viewmioel.MainViewModel
-import com.example.mvvmassignment.viewmioel.MainViewModelFactory
+import com.example.mvvmassignment.view_model.MainViewModel
+import com.example.mvvmassignment.view_model.MainViewModelFactory
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -34,33 +34,47 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setSwipeRefreshListener() {
+        val  mActionBar= supportActionBar
         adapter.addLoadStateListener { loadStates ->
          swipe.isRefreshing = loadStates.refresh is LoadState.Loading
         }
+
         swipe.setOnRefreshListener {
+         adapter.refresh()
+            selectedItemCount=0
+            mActionBar?.title = getString(R.string.app_name)
 
         }
+
     }
 
     private fun setAdapter() {
        val  mActionBar= supportActionBar
-        adapter = PageInfoWithPaginationAdapter { _, item, switch ->
+        adapter = PageInfoWithPaginationAdapter ({ _, item, switch ->
             if(switch.isChecked){
+                switch.isChecked=true
                 selectedItemCount+= 1
                 item.isSelected = true
                 mActionBar?.title = selectedItemCount.toString()
             } else {
                 item.isSelected = false
                 selectedItemCount -= 1
+                if(selectedItemCount==0){
+                    mActionBar?.title = getString(R.string.app_name)
+                }else{
                 mActionBar?.title = selectedItemCount.toString()
+                }
             }
+        }){ _, item, switch ->
+            item.setSelectItem(!item.isSelected)
+            switch.isChecked = item.isSelected
         }
         rvPageData.layoutManager = LinearLayoutManager(this)
         rvPageData.adapter = adapter
     }
 
     private fun setObserver() {
-        viewModel.getPageData1().observe(this@MainActivity,{
+        viewModel.getPageData().observe(this@MainActivity,{
                 lifecycleScope.launchWhenCreated {
                     adapter.submitData(it)
                 }

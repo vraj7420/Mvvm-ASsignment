@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">MVVM Assignment</string>
     <string name="created_at">Created At</string>
-    <string name="title">Title</string>
+    <string name="title">Title:</string>
     <string name="permission_dialog_title">Require Permission</string>
     <string name="permission_dialog_positive_button">Yes\\</string>
     <string name="permission_dialog_negative_button">No</string>
@@ -18,4 +18,5 @@
     <string name="created_at_">Created At:</string>
     <string name="select_image">Select Image</string>
     <string name="upload_image">Upload Image</string>
+    <string name="author">Author:</string>
 </resources>
