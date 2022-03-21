@@ -45,9 +45,7 @@ class PageInfoWithPaginationAdapter(
     override fun onBindViewHolder(holder: PageInfoWithPaginationHolder, position: Int) {
         val pageData = getItem(position)
         val date= Utility().dateConverter(pageData?.created_at ?: "")
-        pageData?.title =ctx.getString(R.string.title)+ " " + (pageData?.title ?: "")
-        pageData?.author= ctx.getString(R.string.author)+pageData?.author
-        holder.bind(pageData?: PageModel(),date)
+         holder.bind(pageData?: PageModel(),date)
         holder.switchSelect.setOnCheckedChangeListener { _, _ ->
             switchChangeListener(position, pageData ?: PageModel(), holder.switchSelect)
         }
