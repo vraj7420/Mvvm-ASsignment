@@ -1,8 +1,9 @@
 package com.example.mvvmassignment.repository
 
+import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.example.mvvmassignment.Constant
+import com.example.mvvmassignment.utils.Utility
 import com.example.mvvmassignment.model.PageModel
 import com.example.mvvmassignment.network.BaseService
 import retrofit2.HttpException
@@ -19,22 +20,24 @@ class PageDataRepository : PagingSource<Int, PageModel>() {
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, PageModel> {
         val nextPageNumber = params.key ?: STARTING_PAGE_INDEX
         return try {
-           val result=BaseService().getBaseApi().getData("story", nextPageNumber.toString())
 
+            val result=BaseService().getBaseApi().getData(Utility.story, nextPageNumber.toString())
             val nextKey =
                 if (result.pageList.isEmpty()) {
                     null
                 } else {
-                    nextPageNumber + (params.loadSize /Constant.page_size)
+                    nextPageNumber + 1
                 }
             LoadResult.Page(
                 data = result.pageList,
-                prevKey =null/* if (nextPageNumber == STARTING_PAGE_INDEX) null else nextPageNumber*/,
+                prevKey =null,
                 nextKey = nextKey
             )
         } catch (e: IOException) {
+            Log.d("error",e.message.toString())
             LoadResult.Error(e)
         } catch (e: HttpException) {
+            Log.d("error",e.message.toString())
             LoadResult.Error(e)
         }
     }

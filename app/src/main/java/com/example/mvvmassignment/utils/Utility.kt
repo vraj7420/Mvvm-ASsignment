@@ -1,4 +1,4 @@
-package com.example.mvvmassignment
+package com.example.mvvmassignment.utils
 
 import java.text.DateFormat
 import java.text.SimpleDateFormat
@@ -8,6 +8,7 @@ class Utility {
     companion object{
     const val dateOldFormat="yyyy-MM-dd'T'hh:mm:ss"
     const val dataFormat="MMM d,yyyy"
+        const val story="story"
     }
 
     fun dateConverter(date:String):String{

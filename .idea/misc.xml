@@ -3,7 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/vraj educations fille/tatvasoft projects/MVVMAssignment/app/src/main/res/drawable/switch_thumb.xml" value="0.13240740740740742" />
+        <entry key="..\:/vraj educations fille/tatvasoft projects/MVVMAssignment/app/src/main/res/drawable/switch_track.xml" value="0.13240740740740742" />
         <entry key="..\:/vraj educations fille/tatvasoft projects/MVVMAssignment/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/vraj educations fille/tatvasoft projects/MVVMAssignment/app/src/main/res/layout/fragment_page_data.xml" value="0.28125" />
         <entry key="..\:/vraj educations fille/tatvasoft projects/MVVMAssignment/app/src/main/res/layout/item_page.xml" value="0.24635416666666668" />
       </map>
     </option>

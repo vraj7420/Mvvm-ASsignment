@@ -1,6 +1,5 @@
 package com.example.mvvmassignment.network
 
-//import okhttp3.logging.HttpLoggingInterceptor
 import com.example.mvvmassignment.BuildConfig
 import okhttp3.OkHttpClient
 import okhttp3.Request

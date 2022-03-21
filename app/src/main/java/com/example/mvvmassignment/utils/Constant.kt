@@ -1,4 +1,4 @@
-package com.example.mvvmassignment
+package com.example.mvvmassignment.utils
 
 class Constant {
     companion object{
