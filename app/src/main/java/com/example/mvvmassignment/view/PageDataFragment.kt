@@ -112,7 +112,6 @@ class PageDataFragment : Fragment() {
             }
 
         }
-
     }
 
     private fun viewModelSetUp() {

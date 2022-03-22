@@ -12,8 +12,7 @@ class MainViewModel(private val pageRepository: PageDataRepository) : ViewModel(
     val pageDataLiveData:LiveData<PagingData<PageModel>>
         get()=pageData
     var selectedCount=MutableLiveData(0)
-    var error=MutableLiveData<String>()
-    var loading=MutableLiveData<Boolean>(false)
+
 
 
     fun getPageData(): LiveData<PagingData<PageModel>> {
