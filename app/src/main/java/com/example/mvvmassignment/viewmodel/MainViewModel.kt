@@ -8,16 +8,13 @@ import com.example.mvvmassignment.model.PageModel
 
 
 class MainViewModel(private val pageRepository: PageDataRepository) : ViewModel() {
-   private var pageData=MutableLiveData<PagingData<PageModel>>()
-    val pageDataLiveData:LiveData<PagingData<PageModel>>
-        get()=pageData
+    var pageData=MutableLiveData<PagingData<PageModel>>()
+     var pageDataLiveData=(Pager(
+         config = PagingConfig(pageSize = Constant.page_size),
+         pagingSourceFactory = {PageDataRepository()}, initialKey = Constant.initialKey).flow.cachedIn(viewModelScope).asLiveData())
     var selectedCount=MutableLiveData(0)
+    var error=MutableLiveData<String>()
+    var loading=MutableLiveData<Boolean>()
+    var recyclerViewVisibility=MutableLiveData(error.value?.isEmpty() == true && loading.value ==false)
 
-
-
-    fun getPageData(): LiveData<PagingData<PageModel>> {
-        return Pager(
-            config = PagingConfig(pageSize = Constant.page_size, enablePlaceholders =false),
-            pagingSourceFactory = {PageDataRepository()}, initialKey = Constant.initialKey).flow.cachedIn(viewModelScope).asLiveData()
-    }
 }

@@ -4,7 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+<variable
+    name="viewModel"
+    type="com.example.mvvmassignment.viewmodel.MainViewModel" />
+        <import type="com.example.mvvmassignment.R"/>
+        <import type="android.view.View"/>
 
+        <import type="android.text.TextUtils"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -30,6 +36,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     tools:itemCount="5"
+                    android:visibility="@{viewModel.recyclerViewVisibility?View.VISIBLE:View.GONE}"
                     tools:listitem="@layout/item_page" />
 
                 <androidx.core.widget.ContentLoadingProgressBar
@@ -42,8 +49,9 @@
                     android:indeterminate="true"
                     android:max="100"
                     android:progress="0"
-                    android:visibility="gone"
-                    app:layout_constraintTop_toBottomOf="@id/rvPageData" />
+                    android:visibility="@{viewModel.loading?View.VISIBLE:View.GONE}"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tvError"
@@ -52,10 +60,10 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:gravity="center"
-                    android:text="@string/error"
+                    android:text="@{viewModel.error}"
                     android:textColor="@color/black"
                     android:textStyle="bold"
-                    android:visibility="gone"
+                    android:visibility="@{TextUtils.isEmpty(viewModel.error)?View.GONE:View.VISIBLE}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

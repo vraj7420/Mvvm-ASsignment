@@ -3,6 +3,7 @@ package com.example.mvvmassignment.adapter
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.appcompat.widget.SwitchCompat
 import androidx.databinding.DataBindingUtil
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
@@ -11,13 +12,12 @@ import com.example.mvvmassignment.R
 import com.example.mvvmassignment.databinding.ItemPageBinding
 import com.example.mvvmassignment.model.PageModel
 import com.example.mvvmassignment.utils.Utility
-import com.google.android.material.switchmaterial.SwitchMaterial
 import kotlinx.android.synthetic.main.item_page.view.*
 
 
 class PageInfoWithPaginationAdapter(
     private val switchOnClickListener: (itemPosition: Int, item: PageModel, switchChecked: Boolean) -> Unit,
-    private val itemClickListener: (itemPosition: Int, item: PageModel, switch: SwitchMaterial) -> Unit
+    private val itemClickListener: (itemPosition: Int, item: PageModel) -> Unit
 
 ) : PagingDataAdapter<PageModel, PageInfoWithPaginationAdapter.PageInfoWithPaginationHolder>(
     DiffUtilCallBack()
@@ -48,19 +48,21 @@ class PageInfoWithPaginationAdapter(
         }
         val date = Utility().dateConverter(pageData?.created_at ?: "")
         val title = (position + 1).toString() + "." + (pageData?.title ?: "")
-        holder.bind(PageModel(date, title, pageData?.author ?: ""))
         holder.switchSelect.setOnClickListener {
             switchOnClickListener(position, pageData ?: PageModel(), holder.switchSelect.isChecked)
         }
         holder.itemView.setOnClickListener {
-            itemClickListener(position, pageData ?: PageModel(), holder.switchSelect)
+            itemClickListener(position, pageData ?: PageModel(),)
         }
+        val selected= pageData?.switchSelected
+        holder.bind(PageModel(date, title, pageData?.author ?: "", selected == true))
+
     }
 
 
     class PageInfoWithPaginationHolder(private var itemPageBinding: ItemPageBinding) :
         RecyclerView.ViewHolder(itemPageBinding.root) {
-        val switchSelect: SwitchMaterial = itemView.switchSelect
+        val switchSelect: SwitchCompat = itemView.switchSelect
         fun bind(pageData: PageModel) {
             itemPageBinding.pageItems = pageData
         }
