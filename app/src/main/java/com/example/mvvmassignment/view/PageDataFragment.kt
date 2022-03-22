@@ -17,6 +17,7 @@ import com.example.mvvmassignment.R
 import com.example.mvvmassignment.adapter.PageInfoWithPaginationAdapter
 import com.example.mvvmassignment.databinding.FragmentPageDataBinding
 import com.example.mvvmassignment.repository.PageDataRepository
+import com.example.mvvmassignment.utils.Utility
 import com.example.mvvmassignment.viewmodel.MainViewModel
 import com.example.mvvmassignment.viewmodel.MainViewModelFactory
 import kotlinx.android.synthetic.main.fragment_page_data.*
@@ -48,13 +49,12 @@ class PageDataFragment : Fragment() {
 
 
     private fun setSwipeRefreshListener() {
-        adapter.addLoadStateListener { loadStates ->
-            swipe.isRefreshing = loadStates.refresh is LoadState.Loading
-        }
 
         swipe.setOnRefreshListener {
+            rvPageData.visibility = View.GONE
             adapter.refresh()
             viewModel.selectedCount.value = 0
+            swipe.isRefreshing = false
         }
 
     }
@@ -85,6 +85,7 @@ class PageDataFragment : Fragment() {
         viewModel.getPageData().observe(requireActivity()) {
             lifecycleScope.launchWhenCreated {
                 adapter.submitData(it)
+                rvPageData.visibility = View.VISIBLE
             }
         }
         viewModel.selectedCount.observe(this) {
@@ -93,6 +94,23 @@ class PageDataFragment : Fragment() {
             } else {
                 actionBar.title = it.toString() + getString(R.string.item_selected)
             }
+        }
+
+        adapter.addLoadStateListener { loadState ->
+            if (loadState.refresh is LoadState.Loading) {
+                pbWaiting.visibility = View.VISIBLE
+                tvError.visibility=View.GONE
+            } else if (loadState.refresh is LoadState.Error) {
+                pbWaiting.visibility = View.GONE
+                rvPageData.visibility=View.GONE
+                if(!Utility().checkForInternet(requireContext())){
+                tvError.text=getString(R.string.no_internet_error)
+                }else{
+                    tvError.text= (loadState.refresh as LoadState.Error).toString()
+                }
+                tvError.visibility=View.VISIBLE
+            }
+
         }
 
     }

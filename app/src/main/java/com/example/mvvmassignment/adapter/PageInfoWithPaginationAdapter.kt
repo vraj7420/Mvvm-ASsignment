@@ -8,15 +8,15 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mvvmassignment.R
-import com.example.mvvmassignment.utils.Utility
 import com.example.mvvmassignment.databinding.ItemPageBinding
 import com.example.mvvmassignment.model.PageModel
+import com.example.mvvmassignment.utils.Utility
 import com.google.android.material.switchmaterial.SwitchMaterial
 import kotlinx.android.synthetic.main.item_page.view.*
 
 
 class PageInfoWithPaginationAdapter(
-    private val switchOnClickListener: (itemPosition: Int, item: PageModel, switchChecked:Boolean) -> Unit,
+    private val switchOnClickListener: (itemPosition: Int, item: PageModel, switchChecked: Boolean) -> Unit,
     private val itemClickListener: (itemPosition: Int, item: PageModel, switch: SwitchMaterial) -> Unit
 
 ) : PagingDataAdapter<PageModel, PageInfoWithPaginationAdapter.PageInfoWithPaginationHolder>(
@@ -31,10 +31,10 @@ class PageInfoWithPaginationAdapter(
         val binding: ItemPageBinding = DataBindingUtil.inflate(
             LayoutInflater.from(parent.context),
             R.layout.item_page, parent,
-            false)
+            false
+        )
         return PageInfoWithPaginationHolder(binding)
     }
-
 
 
     override fun getItemViewType(position: Int): Int {
@@ -43,23 +43,26 @@ class PageInfoWithPaginationAdapter(
 
     override fun onBindViewHolder(holder: PageInfoWithPaginationHolder, position: Int) {
         val pageData = getItem(position)
-        holder.switchSelect.isChecked=false
-        val date= Utility().dateConverter(pageData?.created_at ?: "")
-        val title= (position+1).toString()+"."+ (pageData?.title ?: "")
-        holder.bind( PageModel(date,title, pageData?.author?:""))
+        if (pageData?.switchSelected != true) {
+            holder.switchSelect.isChecked = false
+        }
+        val date = Utility().dateConverter(pageData?.created_at ?: "")
+        val title = (position + 1).toString() + "." + (pageData?.title ?: "")
+        holder.bind(PageModel(date, title, pageData?.author ?: ""))
         holder.switchSelect.setOnClickListener {
             switchOnClickListener(position, pageData ?: PageModel(), holder.switchSelect.isChecked)
         }
         holder.itemView.setOnClickListener {
-            itemClickListener(position,pageData?: PageModel(),holder.switchSelect)
+            itemClickListener(position, pageData ?: PageModel(), holder.switchSelect)
         }
     }
 
 
-    class PageInfoWithPaginationHolder(private var itemPageBinding: ItemPageBinding) : RecyclerView.ViewHolder(itemPageBinding.root) {
+    class PageInfoWithPaginationHolder(private var itemPageBinding: ItemPageBinding) :
+        RecyclerView.ViewHolder(itemPageBinding.root) {
         val switchSelect: SwitchMaterial = itemView.switchSelect
-        fun bind(pageData: PageModel){
-              itemPageBinding.pageItems=pageData
+        fun bind(pageData: PageModel) {
+            itemPageBinding.pageItems = pageData
         }
     }
 
